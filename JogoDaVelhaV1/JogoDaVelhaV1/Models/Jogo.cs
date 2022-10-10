@@ -47,7 +47,7 @@ namespace JogoDaVelhaV1.Models
         }
         public Jogador DecideTurno(List<Jogador> jogadores)
         {
-            return (jogadores[0].Turno == true) ? jogadores[0] : jogadores[1];
+            return (jogadores[1].Turno == true) ? jogadores[1] : jogadores[2];
         }
 
 
