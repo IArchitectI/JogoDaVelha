@@ -13,6 +13,7 @@ namespace JogoDaVelhaV1.Models
         public Tabuleiro Tabuleiro { get; set; }
         public bool FimDeJogo { get; private set; }
 
+        public Jogador Vencedor { get; private set; }
         public Jogo()
         {
             Jogadores = new List<Jogador>();
@@ -49,6 +50,44 @@ namespace JogoDaVelhaV1.Models
         public Jogador DecideTurno()
         {
             return (Jogadores[0].Turno == true) ? Jogadores[0] : Jogadores[1];
+        }
+
+        public void VerificaVencedor(Jogador jogador)
+        {
+            if ((Tabuleiro.Matriz[0,0] == Tabuleiro.Matriz[0,1] && Tabuleiro.Matriz[0,1] == Tabuleiro.Matriz[0,2]) && (Tabuleiro.Matriz[0,2] != " - ") ||
+                (Tabuleiro.Matriz[1,0] == Tabuleiro.Matriz[1,1] && Tabuleiro.Matriz[1,1] == Tabuleiro.Matriz[1,2]) && (Tabuleiro.Matriz[1,2] != " - ") ||
+                (Tabuleiro.Matriz[2,0] == Tabuleiro.Matriz[2,1] && Tabuleiro.Matriz[2,1] == Tabuleiro.Matriz[2,2]) && (Tabuleiro.Matriz[2,2] != " - ") ||
+                (Tabuleiro.Matriz[0,0] == Tabuleiro.Matriz[1,0] && Tabuleiro.Matriz[1,0] == Tabuleiro.Matriz[2,0]) && (Tabuleiro.Matriz[2,0] != " - ") ||
+                (Tabuleiro.Matriz[0,1] == Tabuleiro.Matriz[1,1] && Tabuleiro.Matriz[1,1] == Tabuleiro.Matriz[2,1]) && (Tabuleiro.Matriz[2,1] != " - ") ||
+                (Tabuleiro.Matriz[0,2] == Tabuleiro.Matriz[1,2] && Tabuleiro.Matriz[1,2] == Tabuleiro.Matriz[2,0]) && (Tabuleiro.Matriz[2,0] != " - ") ||
+                (Tabuleiro.Matriz[0,0] == Tabuleiro.Matriz[1,1] && Tabuleiro.Matriz[1,1] == Tabuleiro.Matriz[2,2]) && (Tabuleiro.Matriz[2,2] != " - ") ||
+                (Tabuleiro.Matriz[0,2] == Tabuleiro.Matriz[1,1] && Tabuleiro.Matriz[1,1] == Tabuleiro.Matriz[2,0]) && (Tabuleiro.Matriz[2,0] != " - "))
+            {
+                FimDeJogo = true;
+                Vencedor = jogador;
+            }               
+        }
+
+        public void VerificaVelha()
+        {            
+            int contador = 0;
+
+            for(int i = 0; i < 3; i++)
+            {
+                for(int j = 0; j < 3; j++)
+                {
+                    if(Tabuleiro.Matriz[i,j] != " - ")
+                    {
+                        contador++;
+                    }
+                }
+            }
+            
+            if(contador == 9)
+            {
+                FimDeJogo = true;
+                Console.WriteLine("Deu Velha!");
+            }
         }
 
 

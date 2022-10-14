@@ -47,10 +47,14 @@
 
 
                 jogo.Tabuleiro.ImprimeJogada(jogadorDaVez);
+                jogo.VerificaVencedor(jogadorDaVez);
+                jogo.VerificaVelha();
                 jogo.TrocaTurno();
 
 
             } while (!jogo.FimDeJogo);
+
+            Console.WriteLine($"{jogo.Vencedor.Nome}, você Ganhou!");
         }
 
     }
