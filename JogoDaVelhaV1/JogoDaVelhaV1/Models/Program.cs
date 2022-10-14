@@ -4,50 +4,55 @@
     {
         static void Main(string[] args)
         {
+
+            IniciaNovoJogo();         
+            
+        }
+
+        public static void IniciaNovoJogo()
+        {
             Jogo jogo = new Jogo();
 
-            jogo.Jogadores = new List<Jogador>();
-
-            Jogador inicio = new Jogador(TipoPeca.Vazia, "inicio");
-            jogo.Jogadores.Add(inicio);
+            jogo.Tabuleiro.InicializaTabuleiro();
 
             Console.WriteLine("\nBem Vindo ao Jogo da Velha!");
 
             Console.WriteLine("Digite o nome do primeiro Jogador: ");
             Jogador jogador = new Jogador(TipoPeca.Cruzado, Console.ReadLine());
             jogo.Jogadores.Add(jogador);
+            jogo.Jogadores[0].Turno = true;
 
 
             Console.WriteLine("\nDigite o nome do primeiro Jogador: ");
             Jogador oponente = new Jogador(TipoPeca.Circulo, Console.ReadLine());
             jogo.Jogadores.Add(oponente);
 
-            //============================================================
             do
             {
                 Console.Clear();
 
-                Jogador jogadorDaVez = jogo.DecideTurno(jogo.Jogadores);
+                jogo.Tabuleiro.ImprimeTabuleiro();
 
-                jogo.Tabuleiro.ImprimeJogada(jogadorDaVez).ImprimeTabuleiro();
+                var jogadorDaVez = jogo.DecideTurno();
 
-                Console.WriteLine($"{jogadorDaVez.Nome}, escolha um quadrante correspondente: ");
+                Console.WriteLine($"Jogador {jogadorDaVez.Nome}, escolha um dos quadrantes do template abaixo para realizar sua jogada");
 
                 jogo.MostraQuadrantes();
 
-                Console.WriteLine("Escolha um dos quadrantes do template acima para realizar seu movimento:");
-                jogadorDaVez.DecideQuadrante(int.Parse(Console.ReadLine()));
+                do
+                {
+                    jogadorDaVez.DecideQuadrante(int.Parse(Console.ReadLine()));
 
+                } while (!jogo.VerificaQuadrante(jogadorDaVez));
+
+
+                jogo.Tabuleiro.ImprimeJogada(jogadorDaVez);
                 jogo.TrocaTurno();
 
+
             } while (!jogo.FimDeJogo);
-
-
-
-
-
-
         }
+
     }
 }
 

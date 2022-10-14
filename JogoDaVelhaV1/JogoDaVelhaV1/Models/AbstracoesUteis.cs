@@ -10,7 +10,6 @@ namespace JogoDaVelhaV1.Models
     {
         Cruzado = 0,
         Circulo = 1,
-        Vazia = 2
     }
     public struct Coordenadas
     {

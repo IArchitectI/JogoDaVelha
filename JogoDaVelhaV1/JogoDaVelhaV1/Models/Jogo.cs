@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -14,17 +15,11 @@ namespace JogoDaVelhaV1.Models
 
         public Jogo()
         {
+            Jogadores = new List<Jogador>();
             FimDeJogo = false;
             Tabuleiro = new Tabuleiro(3);
         }
 
-        public void RenderizaTela()
-        {
-            Console.WriteLine("Bem Vindo ao Jogo Da Velha!");
-
-            Tabuleiro.ImprimeJogada(DecideTurno(Jogadores));
-
-        }
         public void MostraQuadrantes()
         {
             int quadrante = 1;
@@ -33,21 +28,27 @@ namespace JogoDaVelhaV1.Models
             {
                 for (int j = 0; j < 3; j++)
                 {
-                    Console.Write($" {quadrante} ");
+                    Console.Write($" {quadrante}   ");
                     quadrante++;
                 }
                 Console.WriteLine("");
             }
 
         }
+        public bool VerificaQuadrante(Jogador jogador)
+        {
+            if (!(Tabuleiro.Matriz[jogador._coordenadaEscolhida.linha, jogador._coordenadaEscolhida.coluna] == " - "))
+                return false;
+            return true;
+        }
         public void TrocaTurno()
         {
             Jogadores[0].Turno = !(Jogadores[0].Turno);
             Jogadores[1].Turno = !(Jogadores[1].Turno);
         }
-        public Jogador DecideTurno(List<Jogador> jogadores)
+        public Jogador DecideTurno()
         {
-            return (jogadores[1].Turno == true) ? jogadores[1] : jogadores[2];
+            return (Jogadores[0].Turno == true) ? Jogadores[0] : Jogadores[1];
         }
 
 

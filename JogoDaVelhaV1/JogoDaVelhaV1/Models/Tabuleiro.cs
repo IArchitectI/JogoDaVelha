@@ -15,30 +15,36 @@ namespace JogoDaVelhaV1.Models
             Matriz = new string[tamanho, tamanho];
         }
 
+       
         public Tabuleiro ImprimeJogada(Jogador jogador)
         {
-            for (int i = 0; i < Math.Sqrt(Matriz.Length); i++)
-            {
-                for (int j = 0; j < Math.Sqrt(Matriz.Length); j++)
+                for (int i = 0; i < Math.Sqrt(Matriz.Length); i++)
                 {
-                    if ((jogador.Peca == TipoPeca.Cruzado) && (i == jogador._coordenadaEscolhida.linha && j == jogador._coordenadaEscolhida.coluna))
+                    for (int j = 0; j < Math.Sqrt(Matriz.Length); j++)
                     {
-                        this.Matriz[i, j] = " X ";
+                        if ((jogador.Peca == TipoPeca.Cruzado) && (i == jogador._coordenadaEscolhida.linha && j == jogador._coordenadaEscolhida.coluna))
+                        {
+                            this.Matriz[i, j] = " X ";
+                        }
+                        else if ((jogador.Peca == TipoPeca.Circulo) && (i == jogador._coordenadaEscolhida.linha && j == jogador._coordenadaEscolhida.coluna))
+                        {
+                            this.Matriz[i, j] = " O ";
+                        }
                     }
-                    else if ((jogador.Peca == TipoPeca.Circulo) && (i == jogador._coordenadaEscolhida.linha && j == jogador._coordenadaEscolhida.coluna))
-                    {
-                        this.Matriz[i, j] = " O ";
-                    }
-                    else
-                    {
-                        Matriz[i, j] = " - ";
-                    }
-
-
-                }
-            }
+                }                        
 
             return this;
+        }
+
+        public void InicializaTabuleiro()
+        {
+            for(int i = 0; i < Math.Sqrt(Matriz.Length); i++)
+            {
+                for(int j = 0; j < Math.Sqrt(Matriz.Length); j++)
+                {
+                    this.Matriz[i, j] = " - ";
+                }
+            }
         }
 
         public void ImprimeTabuleiro()

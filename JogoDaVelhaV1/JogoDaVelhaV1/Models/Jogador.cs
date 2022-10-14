@@ -23,10 +23,7 @@ namespace JogoDaVelhaV1.Models
             Peca = peca;
             Nome = nome;
         }
-        public void DecideCoordenada()
-        {
-
-        }
+ 
         public void DecideQuadrante(int quadrante)
         {
             switch (quadrante)
